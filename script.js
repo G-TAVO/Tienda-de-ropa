@@ -1,147 +1,215 @@
 const productos = [
+
 {
-nombre:"Camiseta Premium",
-precio:45000,
-categoria:"ropa",
-agotado:false,
-imagen:"https://picsum.photos/300/300?1"
+id:1,
+nombre:"Ice Blue",
+precio:12000,
+imagen:"img/ice-blue.jpg"
 },
+
 {
-nombre:"Gorra Urbana",
-precio:30000,
-categoria:"accesorios",
-agotado:false,
-imagen:"https://picsum.photos/300/300?2"
+id:2,
+nombre:"Ice Fresa",
+precio:12000,
+imagen:"img/ice-fresa.jpg"
 },
+
 {
-nombre:"Reloj Elegante",
-precio:120000,
-categoria:"accesorios",
-agotado:true,
-imagen:"https://picsum.photos/300/300?3"
+id:3,
+nombre:"Ice Mango",
+precio:12000,
+imagen:"img/ice-mango.jpg"
+},
+
+{
+id:4,
+nombre:"Sundae Brownie",
+precio:15000,
+imagen:"img/brownie.jpg"
+},
+
+{
+id:5,
+nombre:"Ice Oreo",
+precio:13000,
+imagen:"img/oreo.jpg"
+},
+
+{
+id:6,
+nombre:"Ice Arcoíris",
+precio:14000,
+imagen:"img/arcoiris.jpg"
 }
+
 ];
 
-let carrito=[];
+let carrito = [];
 
-function mostrar(lista){
+const contenedor =
+document.getElementById("productos");
 
-let html='';
+function cargarProductos(){
 
-lista.forEach((p,i)=>{
+let html = "";
 
-html+=`
-<div class="card">
+productos.forEach(producto => {
 
-<img src="${p.imagen}">
+html += `
 
-<div class="info">
+<div class="producto-card">
 
-${p.agotado ? '<div class="agotado">AGOTADO</div>' : ''}
+<img src="${producto.imagen}"
+alt="${producto.nombre}">
 
-<h3>${p.nombre}</h3>
+<div class="producto-info">
+
+<h3>${producto.nombre}</h3>
 
 <p class="precio">
-$${p.precio.toLocaleString()}
+$${producto.precio.toLocaleString()}
 </p>
 
-${!p.agotado
-? `<button class="btn" onclick="agregar(${i})">
-Agregar al carrito
-</button>`
-: ''}
+<button
+onclick="agregarCarrito(${producto.id})">
+
+Agregar
+
+</button>
 
 </div>
 
 </div>
+
 `;
+
 });
 
-document.getElementById("productos").innerHTML=html;
+contenedor.innerHTML = html;
+
 }
 
-mostrar(productos);
+function agregarCarrito(id){
 
-function agregar(i){
+const producto =
+productos.find(p => p.id === id);
 
-carrito.push(productos[i]);
+carrito.push(producto);
 
-actualizar();
+actualizarCarrito();
+
 }
 
-function actualizar(){
+function actualizarCarrito(){
 
-let total=0;
-let html='';
+const lista =
+document.getElementById("listaCarrito");
 
-carrito.forEach(p=>{
+const contador =
+document.getElementById("contador");
 
-total+=p.precio;
+const total =
+document.getElementById("total");
 
-html+=`
-<p>${p.nombre}
-- $${p.precio.toLocaleString()}</p>
+lista.innerHTML = "";
+
+let suma = 0;
+
+carrito.forEach((producto,index)=>{
+
+suma += producto.precio;
+
+lista.innerHTML += `
+
+<div class="item-carrito">
+
+<img src="${producto.imagen}"
+width="50">
+
+<div>
+
+<h4>${producto.nombre}</h4>
+
+<p>
+$${producto.precio.toLocaleString()}
+</p>
+
+</div>
+
+<button
+onclick="eliminarProducto(${index})">
+
+✖
+
+</button>
+
+</div>
+
 `;
+
 });
 
-document.getElementById("listaCarrito").innerHTML=html;
-document.getElementById("total").innerText=
-total.toLocaleString();
-
-document.getElementById("contador").innerText=
+contador.textContent =
 carrito.length;
+
+total.textContent =
+suma.toLocaleString();
+
 }
 
-function toggleCarrito(){
+function eliminarProducto(index){
 
-document
-.getElementById("carrito")
-.classList.toggle("activo");
+carrito.splice(index,1);
+
+actualizarCarrito();
+
 }
 
-function buscarProductos(){
+function abrirCarrito(){
 
-let texto=
 document
-.getElementById("buscador")
-.value
-.toLowerCase();
+.getElementById("carritoPanel")
+.classList.add("activo");
 
-let resultado=
-productos.filter(p =>
-p.nombre.toLowerCase().includes(texto)
+}
+
+function cerrarCarrito(){
+
+document
+.getElementById("carritoPanel")
+.classList.remove("activo");
+
+}
+
+document
+.querySelector(".btn-whatsapp")
+.addEventListener("click",()=>{
+
+if(carrito.length===0){
+
+alert(
+"Tu carrito está vacío"
 );
 
-mostrar(resultado);
-}
-
-function filtrar(cat){
-
-if(cat==="todos"){
-mostrar(productos);
 return;
-}
 
-mostrar(
-productos.filter(
-p => p.categoria===cat
-)
-);
 }
-
-function comprarWhatsapp(){
 
 let mensaje =
-"Hola, deseo comprar:%0A%0A";
+"Hola, deseo pedir:%0A%0A";
 
-carrito.forEach(p=>{
+carrito.forEach(item=>{
 
 mensaje +=
-`${p.nombre} - $${p.precio}%0A`;
+`${item.nombre} - $${item.precio}%0A`;
 
 });
 
 window.open(
-`https://wa.me/573012245428?text=${mensaje}`
+`https://wa.me/573012245428?text=${mensaje}`,
+"_blank"
 );
-}
+
+});
+
+cargarProductos();
