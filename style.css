@@ -1,143 +1,401 @@
+:root{
+--azul:#008cff;
+--azul-oscuro:#005fd6;
+--rosa:#ff2d7a;
+--morado:#7a3cff;
+--blanco:#ffffff;
+--gris:#f5f7fb;
+--texto:#222;
+}
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Segoe UI,sans-serif;
+font-family:'Poppins',sans-serif;
 }
 
 body{
-background:#f5f6fa;
+background:var(--gris);
+color:var(--texto);
+overflow-x:hidden;
 }
 
-header{
-background:#111827;
-color:white;
-padding:15px;
+/* HEADER */
+
+.header{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+z-index:1000;
+background:linear-gradient(
+90deg,
+var(--azul),
+var(--morado),
+var(--rosa)
+);
+}
+
+.navbar{
+max-width:1400px;
+margin:auto;
 display:flex;
 justify-content:space-between;
 align-items:center;
-position:sticky;
-top:0;
-z-index:999;
+padding:15px 25px;
 }
 
 .logo{
-font-size:24px;
-font-weight:bold;
-}
-
-header input{
-width:40%;
-padding:10px;
-border:none;
-border-radius:10px;
-}
-
-.hero{
-height:350px;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-background:linear-gradient(rgba(0,0,0,.5),
-rgba(0,0,0,.5)),
-url('https://images.unsplash.com/photo-1441986300917-64674bd600d8');
-background-size:cover;
+font-size:30px;
+font-weight:800;
 color:white;
 }
 
-.hero h1{
-font-size:50px;
+.logo i{
+margin-right:8px;
 }
 
-.categorias{
-padding:20px;
-text-align:center;
+.menu{
+display:flex;
+gap:25px;
+list-style:none;
 }
 
-.categorias button{
-padding:10px 20px;
-margin:5px;
-border:none;
-border-radius:20px;
-cursor:pointer;
-}
-
-.productos{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-padding:20px;
-}
-
-.card{
-background:white;
-border-radius:15px;
-overflow:hidden;
-box-shadow:0 10px 25px rgba(0,0,0,.15);
+.menu a{
+text-decoration:none;
+color:white;
+font-weight:600;
 transition:.3s;
 }
 
-.card:hover{
+.menu a:hover{
+opacity:.7;
+}
+
+.carrito{
+cursor:pointer;
+position:relative;
+color:white;
+font-size:24px;
+}
+
+#contador{
+position:absolute;
+top:-10px;
+right:-10px;
+background:red;
+width:22px;
+height:22px;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:12px;
+}
+
+/* HERO */
+
+.hero{
+height:90vh;
+background:
+linear-gradient(
+rgba(0,0,0,.45),
+rgba(0,0,0,.45)
+),
+url("img/fachada.jpg");
+background-size:cover;
+background-position:center;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+position:relative;
+}
+
+.hero-content{
+color:white;
+max-width:700px;
+padding:20px;
+}
+
+.hero h1{
+font-size:60px;
+font-weight:800;
+}
+
+.hero h1 span{
+color:#ff5aa5;
+}
+
+.hero p{
+margin-top:15px;
+font-size:20px;
+}
+
+.hero-buttons{
+margin-top:30px;
+display:flex;
+justify-content:center;
+gap:15px;
+flex-wrap:wrap;
+}
+
+.btn{
+padding:14px 25px;
+border-radius:30px;
+text-decoration:none;
+font-weight:700;
+}
+
+.rosa{
+background:var(--rosa);
+color:white;
+}
+
+.azul{
+background:var(--azul);
+color:white;
+}
+
+/* BENEFICIOS */
+
+.beneficios{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+padding:50px 20px;
+max-width:1200px;
+margin:auto;
+}
+
+.beneficio{
+background:white;
+padding:25px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.beneficio i{
+font-size:40px;
+margin-bottom:10px;
+color:var(--rosa);
+}
+
+/* PRODUCTOS */
+
+.productos{
+padding:80px 20px;
+}
+
+.productos h2{
+text-align:center;
+font-size:40px;
+margin-bottom:40px;
+}
+
+.grid-productos{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(260px,1fr));
+gap:25px;
+max-width:1300px;
+margin:auto;
+}
+
+.producto-card{
+background:white;
+border-radius:25px;
+overflow:hidden;
+box-shadow:0 10px 30px rgba(0,0,0,.1);
+transition:.3s;
+}
+
+.producto-card:hover{
 transform:translateY(-8px);
 }
 
-.card img{
+.producto-card img{
 width:100%;
 height:250px;
 object-fit:cover;
 }
 
-.info{
-padding:15px;
+.producto-info{
+padding:20px;
+text-align:center;
+}
+
+.producto-info h3{
+margin-bottom:10px;
 }
 
 .precio{
 font-size:24px;
-color:#0f9d58;
-font-weight:bold;
+font-weight:800;
+color:var(--azul);
+margin-bottom:15px;
 }
 
-.agotado{
-background:red;
-color:white;
-padding:5px;
-display:inline-block;
-margin-bottom:10px;
-}
-
-.btn{
-width:100%;
-padding:10px;
+.producto-info button{
+background:linear-gradient(
+90deg,
+var(--rosa),
+var(--morado)
+);
 border:none;
-background:#111827;
+padding:12px 20px;
+border-radius:30px;
 color:white;
+font-weight:700;
 cursor:pointer;
-border-radius:10px;
 }
 
-.carrito{
+/* COMBOS */
+
+.combos{
+padding:80px 20px;
+background:linear-gradient(
+90deg,
+var(--azul),
+var(--rosa)
+);
+color:white;
+}
+
+.combos h2{
+text-align:center;
+margin-bottom:30px;
+font-size:40px;
+}
+
+.combo-grid{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+max-width:1200px;
+margin:auto;
+}
+
+.combo{
+background:rgba(255,255,255,.15);
+padding:30px;
+border-radius:20px;
+text-align:center;
+backdrop-filter:blur(10px);
+}
+
+/* GALERIA */
+
+.galeria{
+padding:80px 20px;
+}
+
+.galeria h2{
+text-align:center;
+margin-bottom:30px;
+font-size:40px;
+}
+
+.galeria-grid{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(250px,1fr));
+gap:15px;
+max-width:1200px;
+margin:auto;
+}
+
+.galeria-grid img{
+width:100%;
+height:250px;
+object-fit:cover;
+border-radius:15px;
+}
+
+/* CARRITO */
+
+.carrito-panel{
 position:fixed;
-right:-400px;
 top:0;
-width:350px;
-height:100%;
+right:-420px;
+width:400px;
+height:100vh;
 background:white;
 padding:20px;
-box-shadow:-5px 0 20px rgba(0,0,0,.2);
 transition:.4s;
-overflow:auto;
+overflow-y:auto;
+z-index:9999;
+box-shadow:-10px 0 30px rgba(0,0,0,.2);
 }
 
-.carrito.activo{
+.carrito-panel.activo{
 right:0;
+}
+
+.carrito-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.item-carrito{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+padding:10px;
+border-bottom:1px solid #ddd;
+}
+
+.total{
+font-size:24px;
+font-weight:800;
+margin-top:20px;
 }
 
 .btn-whatsapp{
 width:100%;
-padding:12px;
+padding:15px;
+border:none;
 background:#25D366;
 color:white;
-border:none;
-border-radius:10px;
+font-size:18px;
+border-radius:12px;
+margin-top:15px;
+cursor:pointer;
+}
+
+/* FOOTER */
+
+footer{
+background:#111;
+color:white;
+text-align:center;
+padding:40px 20px;
+}
+
+/* CELULARES */
+
+@media(max-width:768px){
+
+.menu{
+display:none;
+}
+
+.hero h1{
+font-size:38px;
+}
+
+.hero{
+height:75vh;
+}
+
+.carrito-panel{
+width:100%;
+}
+
 }
