@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tienda Tavo</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f4f4;
+}
+
+header{
+background:#111;
+color:white;
+padding:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:sticky;
+top:0;
+}
+
+.logo{
+font-size:24px;
+font-weight:bold;
+}
+
+.carrito-btn{
+background:#25D366;
+color:white;
+border:none;
+padding:10px 15px;
+border-radius:5px;
+cursor:pointer;
+}
+
+.hero{
+height:300px;
+background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),
+url('https://images.unsplash.com/photo-1483985988355-763728e1935b');
+background-size:cover;
+background-position:center;
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+font-size:35px;
+font-weight:bold;
+}
+
+.productos{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+padding:20px;
+}
+
+.card{
+background:white;
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 2px 10px rgba(0,0,0,.2);
+}
+
+.card img{
+width:100%;
+height:250px;
+object-fit:cover;
+}
+
+.card-body{
+padding:15px;
+}
+
+.precio{
+color:green;
+font-size:22px;
+font-weight:bold;
+margin:10px 0;
+}
+
+.btn{
+width:100%;
+padding:10px;
+background:#111;
+color:white;
+border:none;
+cursor:pointer;
+border-radius:5px;
+}
+
+.agotado{
+background:red;
+padding:5px;
+color:white;
+display:inline-block;
+margin-bottom:10px;
+}
+
+#carrito{
+position:fixed;
+right:0;
+top:0;
+width:350px;
+height:100%;
+background:white;
+box-shadow:-5px 0 10px rgba(0,0,0,.2);
+padding:20px;
+overflow:auto;
+display:none;
+}
+
+.item{
+margin-bottom:10px;
+border-bottom:1px solid #ddd;
+padding-bottom:10px;
+}
+
+.whatsapp{
+background:#25D366;
+color:white;
+padding:12px;
+width:100%;
+border:none;
+margin-top:10px;
+cursor:pointer;
+font-size:16px;
+}
+</style>
+
+</head>
+<body>
+
+<header>
+<div class="logo">🛍️ Tienda Tavo</div>
+
+<button class="carrito-btn" onclick="abrirCarrito()">
+🛒 Carrito (<span id="contador">0</span>)
+</button>
+</header>
+
+<div class="hero">
+Nueva Colección 2026
+</div>
+
+<section class="productos" id="productos"></section>
+
+<div id="carrito">
+
+<h2>Carrito de Compras</h2>
+
+<div id="listaCarrito"></div>
+
+<h3>Total: $<span id="total">0</span></h3>
+
+<button class="whatsapp" onclick="enviarWhatsapp()">
+Comprar por WhatsApp
+</button>
+
+</div>
+
+<script>
+
+let carrito=[];
+
+const productos=[
+{
+nombre:"Camiseta Premium",
+precio:45000,
+imagen:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab",
+agotado:false
+},
+{
+nombre:"Gorra Urbana",
+precio:35000,
+imagen:"https://images.unsplash.com/photo-1521369909029-2afed882baee",
+agotado:false
+},
+{
+nombre:"Chaqueta Jeans",
+precio:120000,
+imagen:"https://images.unsplash.com/photo-1542272604-787c3835535d",
+agotado:true
+},
+{
+nombre:"Reloj Elegante",
+precio:95000,
+imagen:"https://images.unsplash.com/photo-1523170335258-f5ed11844a49",
+agotado:false
+}
+];
+
+function mostrarProductos(){
+
+let html='';
+
+productos.forEach((p,index)=>{
+
+html+=`
+
+<div class="card">
+
+<img src="${p.imagen}">
+
+<div class="card-body">
+
+${p.agotado ? '<div class="agotado">AGOTADO</div>' : ''}
+
+<h3>${p.nombre}</h3>
+
+<div class="precio">$${p.precio.toLocaleString()}</div>
+
+${!p.agotado
+? `<button class="btn" onclick="agregarCarrito(${index})">Agregar al carrito</button>`
+: ''
+}
+
+</div>
+
+</div>
+`;
+});
+
+document.getElementById("productos").innerHTML=html;
+}
+
+function agregarCarrito(i){
+
+carrito.push(productos[i]);
+
+actualizarCarrito();
+}
+
+function actualizarCarrito(){
+
+let html='';
+let total=0;
+
+carrito.forEach(p=>{
+
+html+=`
+<div class="item">
+${p.nombre}<br>
+$${p.precio.toLocaleString()}
+</div>
+`;
+
+total+=p.precio;
+});
+
+document.getElementById("listaCarrito").innerHTML=html;
+document.getElementById("total").innerText=total.toLocaleString();
+document.getElementById("contador").innerText=carrito.length;
+}
+
+function abrirCarrito(){
+
+const c=document.getElementById("carrito");
+
+c.style.display=
+c.style.display=="block"
+? "none"
+: "block";
+}
+
+function enviarWhatsapp(){
+
+if(carrito.length==0){
+alert("Tu carrito está vacío");
+return;
+}
+
+let mensaje="Hola, quiero comprar:%0A%0A";
+
+carrito.forEach(p=>{
+mensaje+=`${p.nombre} - $${p.precio}%0A`;
+});
+
+window.open(
+`https://wa.me/573012245428?text=${mensaje}`,
+'_blank'
+);
+
+}
+
+mostrarProductos();
+
+</script>
+
+</body>
+</html>
