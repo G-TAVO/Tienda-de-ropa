@@ -2,49 +2,196 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tienda Tavo Premium</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ice Mood - Heladería</title>
+
 <link rel="stylesheet" href="style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
 </head>
 <body>
 
-<header>
-  <div class="logo">🛍️ Tienda Tavo</div>
+<header class="header">
 
-  <input
-    type="text"
-    id="buscador"
-    placeholder="Buscar productos..."
-    onkeyup="buscarProductos()">
+<nav class="navbar">
 
-  <button onclick="toggleCarrito()">
-    🛒 <span id="contador">0</span>
-  </button>
+<div class="logo">
+<i class="fa-solid fa-ice-cream"></i>
+<span>Ice Mood</span>
+</div>
+
+<ul class="menu">
+<li><a href="#inicio">Inicio</a></li>
+<li><a href="#sabores">Sabores</a></li>
+<li><a href="#combos">Combos</a></li>
+<li><a href="#galeria">Galería</a></li>
+<li><a href="#contacto">Contacto</a></li>
+</ul>
+
+<div class="carrito" onclick="abrirCarrito()">
+<i class="fas fa-shopping-cart"></i>
+<span id="contador">0</span>
+</div>
+
+</nav>
+
 </header>
 
-<section class="hero">
-  <h1>Nueva Colección 2026</h1>
-  <p>Moda, accesorios y mucho más</p>
+<section class="hero" id="inicio">
+
+<div class="hero-overlay"></div>
+
+<div class="hero-content">
+
+<h1>
+Refresca tu día con
+<span>Ice Mood</span>
+</h1>
+
+<p>
+Los mejores granizados, helados y postres.
+</p>
+
+<div class="hero-buttons">
+
+<a href="#sabores" class="btn rosa">
+Ver Sabores
+</a>
+
+<a href="#" class="btn azul">
+<i class="fab fa-whatsapp"></i>
+Pedir por WhatsApp
+</a>
+
+</div>
+
+</div>
+
 </section>
 
-<div class="categorias">
-  <button onclick="filtrar('todos')">Todos</button>
-  <button onclick="filtrar('ropa')">Ropa</button>
-  <button onclick="filtrar('accesorios')">Accesorios</button>
+<section class="beneficios">
+
+<div class="beneficio">
+<i class="fas fa-truck"></i>
+<h3>Envíos Rápidos</h3>
+<p>A tu casa</p>
 </div>
 
-<section id="productos" class="productos"></section>
-
-<div id="carrito" class="carrito">
-  <h2>Carrito</h2>
-  <div id="listaCarrito"></div>
-  <h3>Total: $<span id="total">0</span></h3>
-
-  <button class="btn-whatsapp" onclick="comprarWhatsapp()">
-    Comprar por WhatsApp
-  </button>
+<div class="beneficio">
+<i class="fas fa-snowflake"></i>
+<h3>Productos Fríos</h3>
+<p>100% calidad</p>
 </div>
+
+<div class="beneficio">
+<i class="fas fa-award"></i>
+<h3>Premium</h3>
+<p>Ingredientes frescos</p>
+</div>
+
+<div class="beneficio">
+<i class="fas fa-heart"></i>
+<h3>Hecho con Amor</h3>
+<p>Para ti</p>
+</div>
+
+</section>
+
+<section class="productos" id="sabores">
+
+<h2>🍧 Nuestros Sabores</h2>
+
+<div class="grid-productos" id="productos">
+
+<!-- Productos cargados por JavaScript -->
+
+</div>
+
+</section>
+
+<section class="combos" id="combos">
+
+<h2>🔥 Combos Especiales</h2>
+
+<div class="combo-grid">
+
+<div class="combo">
+<h3>Combo Duo</h3>
+<p>$22.000</p>
+</div>
+
+<div class="combo">
+<h3>Combo Familiar</h3>
+<p>$35.000</p>
+</div>
+
+<div class="combo">
+<h3>Combo Amigos</h3>
+<p>$45.000</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="galeria" id="galeria">
+
+<h2>🏪 Nuestro Local</h2>
+
+<div class="galeria-grid">
+
+<img src="img/local1.jpg">
+<img src="img/local2.jpg">
+<img src="img/local3.jpg">
+<img src="img/local4.jpg">
+
+</div>
+
+</section>
+
+<div class="carrito-panel" id="carritoPanel">
+
+<div class="carrito-header">
+
+<h2>Carrito</h2>
+
+<button onclick="cerrarCarrito()">
+✖
+</button>
+
+</div>
+
+<div id="listaCarrito"></div>
+
+<div class="total">
+
+Total:
+$<span id="total">0</span>
+
+</div>
+
+<button class="btn-whatsapp">
+Finalizar Pedido
+</button>
+
+</div>
+
+<footer id="contacto">
+
+<h3>Ice Mood</h3>
+
+<p>Granizados, Helados y Postres</p>
+
+<p>WhatsApp: 3012245428</p>
+
+</footer>
 
 <script src="script.js"></script>
+
 </body>
 </html>
